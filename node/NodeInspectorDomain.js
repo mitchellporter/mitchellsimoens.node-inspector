@@ -31,9 +31,11 @@
         );
 
         child.on('close', function() {
-            child.kill();
+            if (child) {
+                child.kill();
 
-            child = null;
+                child = null;
+            }
         });
 
         return true;
