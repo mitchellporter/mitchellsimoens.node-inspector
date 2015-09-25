@@ -1,0 +1,32 @@
+{
+  "name": "mitchellsimoens.node-inspector",
+  "title": "Node Inspector",
+  "description": "Extension to turn on/off node-inspector.",
+  "homepage": "https://github.com/mitchellsimoens/brackets-node-inspector",
+  "version": "0.0.1",
+  "author": {
+    "name": "Mitchell Simoens",
+    "email": "mitchellsimoens@gmail.com",
+    "url": "https://github.com/mitchellsimoens"
+  },
+  "license": "MIT",
+  "engines": {
+    "brackets": ">=0.24.0"
+  },
+  "keywords": [
+    "node",
+    "debug",
+    "inspector",
+    "node-inspector",
+    "nodejs"
+  ],
+  "contributors": [
+    {
+      "name": "Mitchell Simoens",
+      "url": "https://github.com/mitchellsimoens"
+    }
+  ],
+  "dependencies": {
+    "ps-node": "0.0.5"
+  }
+}
