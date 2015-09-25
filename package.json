@@ -3,7 +3,7 @@
   "title": "Node Inspector",
   "description": "Extension to turn on/off node-inspector.",
   "homepage": "https://github.com/mitchellsimoens/mitchellsimoens.node-inspector",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "author": {
     "name": "Mitchell Simoens",
     "email": "mitchellsimoens@gmail.com",

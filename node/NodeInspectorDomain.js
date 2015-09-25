@@ -1,59 +1,20 @@
 (function () {
     "use strict";
 
-    var ps    = require('ps-node'),
-        spawn = require('child_process').spawn,
+    var spawn = require('child_process').spawn,
         child, _domainManager;
 
-    function isRunning(callback) {
-        ps.lookup(
-            {
-                command   : 'node',
-                arguments : /node-inspector/
-            },
-            function(error, processes) {
-                if (error) {
-                    callback(error);
-                } else {
-                    callback(null, !!child || (processes && processes.length > 0));
-                }
-            }
-        );
+    function isRunning() {
+        return !!child;
     }
 
-    function killInspector(callback) {
+    function killInspector() {
         if (child) {
             child.kill();
             child = null;
         }
 
-        ps.lookup(
-            {
-                command   : 'node',
-                arguments : /node-inspector/
-            },
-            function(error, processes) {
-                if (error) {
-                    callback(error);
-                } else if (processes && processes.length) {
-                    var killed = 0;
-
-                    processes.forEach(function(process) {
-                        ps.kill(process.pid, function(error) {
-                            killed++;
-
-                            if (error) {
-                                callback(error);
-                            } else if (processes.length === killed) {
-                                callback(null, true);
-                            }
-                        });
-                    });
-                } else {
-                    callback(null, true);
-                }
-            }
-        );
+        return true;
     }
 
     function startInspector(cwd, isWin, shell) {
@@ -68,6 +29,12 @@
                 env : process.env
             }
         );
+
+        child.on('close', function() {
+            child.kill();
+
+            child = null;
+        });
 
         return true;
     }
@@ -87,7 +54,7 @@
             'nodeinspector',
             'isRunning',
             isRunning,
-            true,
+            false,
             'Check to see if a node-inspector process is running.',
             [],
             [
@@ -103,7 +70,7 @@
             'nodeinspector',
             'killInspector',
             killInspector,
-            true,
+            false,
             'Kill all node-inspector running processes.',
             [],
             [
